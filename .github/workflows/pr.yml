@@ -32,7 +32,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: 🚚 Get latest code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           # Checkout base (target) repo
           ref: ${{ env.GH_REF }}
@@ -51,7 +51,7 @@ jobs:
           DIFF=$(git diff --name-only --diff-filter=ACMRT \
             ${{ env.BASE_SHA }}...${{ env.PR_HEAD_SHA }})
 
-          echo "::notice::DIFF(files): ${DIFF/$'\n'/ }"
+          echo "::notice::DIFF(files): ${DIFF//$'\n'/ }"
 
           if echo $DIFF | grep "node_modules"; then
             echo "::error::Unsafe change 'node_modules' found"

@@ -77,7 +77,7 @@ export class CommandControl {
 
   userFlag(url, isDnsCmd = false) {
     // When incoming request is a dns-msg, all cmds are no-op
-    if (isDnsCmd) return emptyFlag;
+    if (isDnsCmd) return "";
 
     return rdnsutil.blockstampFromUrl(url);
   }
@@ -122,8 +122,6 @@ export class CommandControl {
 
       this.log.d(rxid, url, "processing... cmd/flag", command, b64UserFlag);
 
-      // resolver may not have been setup, so set it up
-      await this.resolver.lazyInit();
       // blocklistFilter may not have been setup, so set it up
       await this.bw.init(rxid, /* force-wait */ true);
       const blf = this.bw.getBlocklistFilter();
